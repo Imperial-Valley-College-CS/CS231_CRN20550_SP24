@@ -4,9 +4,7 @@ public class Exceptions
 {
    public static void main(String[] args)
    {
-      Scanner scan = new Scanner(System.in);
-      
-      
+      Scanner scan = new Scanner(System.in);      
       while(true)
       {                  
          try
