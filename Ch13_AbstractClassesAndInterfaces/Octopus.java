@@ -1,15 +1,53 @@
-import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.animation.AnimationTimer;
 
-public class Octopus extends Application
+public class Octopus extends Invader
 {
-   private Timer timer = new Timer();
-   @Override
-   public void start( Stage stage )
+   private Timer timer = new Timer();   
+   private String[] octopusFiles = {"/OctopusMatrix.txt", "/HurtOctopusMatrix.txt", "/DamagedOctopusMatrix.txt"};
+   private int counter, xUlim, xLlim;
+   private int speedXCoeff = 1;
+   
+   public Octopus( int x, int y )
    {
-      timer.start();       //activates the AnimationTimer       
-   }//end main
+      super(x,y);
+      super.health = octopusFiles.length;
+      super.color = Constants.OCTOPUS_COLOR;
+      super.speedX = Constants.OCTOPUS_SPEED;
+      super.matrixDirectory += this.octopusFiles[0];
+      super.setBody();
+   }
+   
+   @Override
+   public boolean hit()
+   {
+      timer.start();    //starts timer (handle method invoked on every frame)
+      super.hit();
+      if( super.isAlive )
+      {
+         super.matrixDirectory = Constants.MATRIX_DIRECTORY +
+            this.octopusFiles[octopusFiles.length-super.health];
+         super.setBody();
+      }
+      return super.isAlive;
+   }
+   
+   @Override
+   public void move()
+   {
+      int newX = super.position.getX();
+      int newY = super.position.getY();
+      
+      newY += super.speedY;
+      super.position.setY( newY );
+      
+      newX += this.speedXCoeff*super.speedX;
+      
+      if( (newX+Constants.ALIEN_WIDTH) >= this.xUlim 
+          || newX <= xLlim )    //checks for boundary
+         this.speedXCoeff *= -1;
+         
+      this.position.setX(newX);
+   }
    
    class Timer extends AnimationTimer
    {
@@ -21,11 +59,7 @@ public class Octopus extends Application
       public void handle(long now)
       {
          if( timer > speed )
-         {    
-            super.health = 3;
-            super.matDir = "/Octopus.txt";
-            setBody();        
-            System.out.println( now*Math.pow(10,-9) );
+         {                
             timer = 0;
          }
          double dt = (now-last)*Math.pow(10,-9);
