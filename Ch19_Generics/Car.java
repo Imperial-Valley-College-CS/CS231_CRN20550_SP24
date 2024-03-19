@@ -1,5 +1,3 @@
-package PA7_GenericMethods.src.test.java;
-
 public class Car implements Comparable<Car>
 {
    private String make, model;
@@ -29,17 +27,17 @@ public class Car implements Comparable<Car>
    public String getModel(){ return this.model; }
    public int getYear(){ return this.year; }
    
-   @Override //compare Make
-   public int compareTo( Car car )
-   {
-      return this.make.compareToIgnoreCase(car.getMake());   
-   }
-   
-//    @Override //compare Model
+//    @Override //compare Make
 //    public int compareTo( Car car )
 //    {
-//       return this.model.compareToIgnoreCase(car.getModel());   
+//       return this.make.compareToIgnoreCase(car.getMake());   
 //    }
+//    
+   @Override //compare Model
+   public int compareTo( Car car )
+   {
+      return this.model.compareToIgnoreCase(car.getModel());   
+   }
 //    
 //    @Override //compare Year
 //    public int compareTo( Car car )
