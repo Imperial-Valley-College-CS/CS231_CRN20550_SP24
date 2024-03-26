@@ -33,17 +33,17 @@ public class Car implements Comparable<Car>
 //       return this.make.compareToIgnoreCase(car.getMake());   
 //    }
 //    
-   @Override //compare Model
-   public int compareTo( Car car )
-   {
-      return this.model.compareToIgnoreCase(car.getModel());   
-   }
-//    
-//    @Override //compare Year
+   // @Override //compare Model
 //    public int compareTo( Car car )
 //    {
-//       return this.year - car.getYear();   
+//       return this.model.compareToIgnoreCase(car.getModel());   
 //    }
+   
+   @Override //compare Year
+   public int compareTo( Car car )
+   {
+      return this.year - car.getYear();   
+   }
    
    @Override
    public String toString()
