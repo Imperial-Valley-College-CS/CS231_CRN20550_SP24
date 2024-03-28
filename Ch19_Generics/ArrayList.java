@@ -1,5 +1,4 @@
 import java.util.Arrays;
-
 import java.util.Iterator;
 
 public class ArrayList<E> implements Iterable<E>
@@ -51,7 +50,7 @@ public class ArrayList<E> implements Iterable<E>
    @Override
    public Iterator<E> iterator()
    {
-      return null;
+      return new ListIterator<>(this);
    }
    
    @Override
@@ -67,4 +66,44 @@ public class ArrayList<E> implements Iterable<E>
       listAsString += this.arr[this.size-1] + "]";
       return listAsString;
    }
+   
+   class ListIterator<E> implements Iterator<E>
+   {
+      int index = 0;
+      E elem;
+      ArrayList<E> list;
+      
+      public ListIterator(ArrayList<E> list)
+      {
+         this.list = list;
+         elem = this.list.get(index);
+      }
+      
+      @Override
+      public boolean hasNext()
+      {
+         try
+         {
+            E next = this.list.get(index);
+            if( next != null )
+               return true;
+               
+            return false;
+         }catch( ArrayIndexOutOfBoundsException e )
+         {
+            return false;
+         }
+         
+      }
+      
+      @Override
+      public E next()
+      {
+         E current = this.list.get(index);
+         index++;
+         return current;
+      }
+   
+   }
+   
 }
