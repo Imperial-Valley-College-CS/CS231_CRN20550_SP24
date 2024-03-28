@@ -1,6 +1,8 @@
 import java.util.Arrays;
 
-public class ArrayList<E>
+import java.util.Iterator;
+
+public class ArrayList<E> implements Iterable<E>
 {
    private E[] arr;
    private int size = 0;
@@ -14,6 +16,16 @@ public class ArrayList<E>
    {
       this.arr = (E[])(new Object[size]);
    }  
+   
+   public int size()
+   {
+      return this.size;
+   }
+   
+   public E get( int i )
+   {
+      return this.arr[i];
+   }
    
    public void add( E obj )
    {
@@ -34,6 +46,12 @@ public class ArrayList<E>
       
       for( int i = 0; i < copy.length; i++ )
          this.arr[i] = copy[i];
+   }
+   
+   @Override
+   public Iterator<E> iterator()
+   {
+      return null;
    }
    
    @Override

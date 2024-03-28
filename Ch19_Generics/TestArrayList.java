@@ -9,6 +9,16 @@ public class TestArrayList
       list.add("bane");
       list.add("batman");
       list.add("joker");
-      System.out.println( list );
+      System.out.println( list.toString() );
+      
+      for( int i = 0; i < list.size(); i++ )
+      {
+         System.out.println( list.get(i) );
+      }
+      
+      for( String s : list )
+      {
+         System.out.println( s );
+      }
    }
 }
