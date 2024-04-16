@@ -5,14 +5,17 @@ public class PlayWithVideogames
 {
    public static void main(String[] args)
    {
-      ArrayList<Videogame> list = readData("VideogameData/DataSheetVideogames.csv");
-      list.sort( new TitleComparator() );
-      // Collections.sort(list);
+      ArrayList<Videogame> listOfgames = readData("VideogameData/DataSheetVideogames.csv");      
       
-      if( list != null )
-         for( Videogame v : list )
-            System.out.println(v + "\n");
+      PriorityQueue<Videogame> queueOfgames = new PriorityQueue<>( new TitleComparator() );
       
+      for( int i = 0; i < 10; i++ )
+         queueOfgames.offer( listOfgames.get(i) );
+         
+      
+      int size = queueOfgames.size();
+      for( int i = 0; i < size; i++ )
+         System.out.println( queueOfgames.poll() );
    }
    
    public static ArrayList<Videogame> readData( String filename )
@@ -54,7 +57,7 @@ public class PlayWithVideogames
       @Override
       public int compare(Videogame v1, Videogame v2)
       {
-         return v1.getTitle().compareTo( v2.getTitle() );
+         return v2.getTitle().compareTo( v1.getTitle() );
       }
    }
    
@@ -63,7 +66,7 @@ public class PlayWithVideogames
       @Override
       public int compare(Videogame v1, Videogame v2)
       {
-         return v1.getSales()-v2.getSales();
+         return v2.getSales()-v1.getSales();
       }
    }
  
