@@ -1,18 +1,46 @@
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.NumberAxis;
+
 import java.util.Arrays;
 
-public class SortingTimeComplexity
+public class SortingTimeComplexity extends Application
 {
-   public static void main(String[] args)
+   NumberAxis xAxis = new NumberAxis(0, 20000, 1000);
+   NumberAxis yAxis = new NumberAxis(0, 300, 50);
+   XYChart.Series selectionSeries = new XYChart.Series();
+   ScatterChart<Number, Number> sc = new ScatterChart<>(xAxis,yAxis);
+   @Override
+   public void start(Stage stage)
    {
       //testSort();
-      timeComplexity();
+      Number[][] values = timeComplexity();
+      scatterChart(values);
+      Scene scene = new Scene(sc, 500, 400);
+      stage.setScene( scene );
+      stage.show();
    }
    
-   public static void timeComplexity()
+   public void scatterChart(Number[][] values)
+   {
+      
+      selectionSeries.setName("Selection Sort");
+      for( Number[] row : values )
+      {
+         selectionSeries.getData().add( new XYChart.Data(row[0], row[1]) );
+      }
+      sc.getData().add( selectionSeries );
+   }
+   
+   public Number[][] timeComplexity()
    {
       int size = 1000;         //100 elements per array
-      
-      while( size < 20000 )
+      Number[][] values = new Number[5][2];
+      int k = 0; 
+      while( size < 16001 )
       {
          //array of arrays
          int sorts = 50;         //50 sortes
@@ -25,14 +53,18 @@ public class SortingTimeComplexity
          long startTime = System.currentTimeMillis();
          while( counter < sorts )
          {
-            Sort.bubbleSort( arrays[counter] );
+            Sort.selectionSort( arrays[counter] );
             counter++;
          }
          long endTime = System.currentTimeMillis();
          double timeToSort = (double)(endTime-startTime)/sorts;
+         values[k][0] = size;
+         values[k][1] = timeToSort;
          System.out.printf( "%d, %.12f\n", size, timeToSort);
          size *= 2;
+         k++;
       }
+      return values;
    }
    
    public static int[] generateArray( int size )
