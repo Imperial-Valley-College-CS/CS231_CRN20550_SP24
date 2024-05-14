@@ -7,7 +7,7 @@ public class PlayWithVideogames
    {
       ArrayList<Videogame> listOfgames = readData("VideogameData/DataSheetVideogames.csv");      
       
-      PriorityQueue<Videogame> queueOfgames = new PriorityQueue<>( new TitleComparator() );
+      PriorityQueue<Videogame> queueOfgames = new PriorityQueue<>( new ReleaseComparator() );
       
       for( int i = 0; i < 10; i++ )
          queueOfgames.offer( listOfgames.get(i) );
@@ -15,7 +15,7 @@ public class PlayWithVideogames
       
       int size = queueOfgames.size();
       for( int i = 0; i < size; i++ )
-         System.out.println( queueOfgames.poll() );
+         System.out.println( "\n" + queueOfgames.poll() );
    }
    
    public static ArrayList<Videogame> readData( String filename )
@@ -70,13 +70,13 @@ public class PlayWithVideogames
       }
    }
  
-   // static class ReleaseComparator implements Comparator<Videogame>
-//    {
-//       @Override
-//       public int compare(Videogame v1, Videogame v2)
-//       {
-//          return v1.getRelease().compareTo(v2.getRelease());
-//       }
-//    }
+   static class ReleaseComparator implements Comparator<Videogame>
+   {
+      @Override
+      public int compare(Videogame v1, Videogame v2)
+      {
+         return v1.getRelease().compareTo(v2.getRelease());
+      }
+   }
  
 }

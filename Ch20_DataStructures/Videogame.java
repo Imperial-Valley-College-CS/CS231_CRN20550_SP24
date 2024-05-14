@@ -60,7 +60,7 @@ public class Videogame implements Comparable<Videogame>
    @Override
    public int compareTo(Videogame v)      //inherited from Comparable interface
    {
-      return this.sales - v.getSales();
+      return this.sales-v.getSales();
       //return this.title.compareTo(v.getTitle());       //v1.compareTo(v2)   
    }
    
